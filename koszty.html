@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Montaż paneli podłogowych</title>
+    <link rel="stylesheet" href="styl.css">
+</head>
+<body>
+    <header>
+        <img src="montaz_paneli.png" alt="firma usługowa">
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="oferta.html">Oferta</a>
+        <a href="koszty.html">Kalkulator kosztów</a>
+    </nav>
+    <main>
+        <h1>Kalkulator kosztów montażu</h1>
+        <form id="kalkulator">
+            <label for="szerokosc">Szerokość pomieszczenia [m]:</label>
+            <input type="number" id="szerokosc" step="0.01">
+            <label for="dlugosc">Długość pomieszczenia [m]:</label>
+            <input type="number" id="dlugosc" step="0.01">
+            
+            <p>Typ panelu</p>
+            <input type="radio" id="laminowane" name="panel" value="12" checked>
+            <label for="laminowane">Panele laminowane</label><br>
+            <input type="radio" id="winylowe" name="panel" value="14">
+            <label for="winylowe">Panele winylowe</label><br>
+            <input type="radio" id="deska" name="panel" value="18">
+            <label for="deska">Deska podłogowa</label><br>
+            
+            <button type="button" onclick="obliczKoszt()">Oblicz</button>
+            <p id="wynik"></p>
+        </form>
+    </main>
+    <footer>
+        <h5>Autor strony: bartek</h5>
+    </footer>
+    <script>
+        function obliczKoszt() {
+            const szerokosc = parseFloat(document.getElementById('szerokosc').value);
+            const dlugosc = parseFloat(document.getElementById('dlugosc').value);
+            const panel = parseFloat(document.querySelector('input[name="panel"]:checked').value);
+            
+            if (isNaN(szerokosc) || isNaN(dlugosc)) {
+                document.getElementById('wynik').textContent = "Wprowadź poprawne dane.";
+                return;
+            }
+            
+            const pole = szerokosc * dlugosc;
+            const koszt = pole * panel;
+            
+            document.getElementById('wynik').textContent = 
+                `Pole powierzchni pomieszczenia: ${pole.toFixed(2)}, koszt montażu ${koszt.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
